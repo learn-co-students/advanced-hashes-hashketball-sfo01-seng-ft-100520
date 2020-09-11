@@ -1,4 +1,5 @@
-# Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -126,4 +127,119 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  game_hash.each do |location, team|
+    team.each do |team_info, details|
+      if team_info == :players
+        details.each do |stats|
+        stats.each do |category, input|
+          if input == player_name
+          return stats[:points]
+          end
+        end   
+        end   
+      end   
+    end 
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |location,team|
+    team.each do |team_info, details|
+      if team_info == :players
+        details.each do |stats|
+        stats.each do |category, input|
+          if input == player_name
+            return stats[:shoe]
+          end
+        end   
+        end  
+      end  
+    end   
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |location, team|
+    team.each do |team_info, details|
+        if details == team_name
+          return team[:colors]
+        end   
+    end  
+  end  
+end
+
+def team_names
+teams = []
+  game_hash.each do |location, team|
+    team.each do |team_info, details|
+      if team_info == :team_name
+        teams << team[:team_name]
+      end
+    end 
+  end
+  teams
+end
+
+def player_numbers (team_name)
+jersey_numbers = []
+  game_hash.each do |location, team|
+    if team[:team_name] == team_name 
+      team.each do |team_info, details|
+        if team_info == :players
+          details.each do |stats|
+            stats.each do |category, input|
+              if category == :number
+                jersey_numbers << input
+              end 
+            end
+          end
+        end
+      end 
+    end
+  end   
+  jersey_numbers
+end
+
+def player_stats (player_name)
+  game_hash.each do |location, team|
+    team.each do |team_info, details|
+      if team_info == :players
+        details.each do |stats|
+          stats.each do |category, input|
+            if input == player_name
+              return stats
+            end
+          end   
+        end 
+      end
+    end   
+  end  
+end   
+
+
+def big_shoe_rebounds
+  player_name = nil 
+  largest_shoe = nil
+  rebounds = nil
+  game_hash.each do |location, team|
+    team.each do |team_info, details|
+      if team_info == :players
+        details.each do |stats|
+          
+          if largest_shoe == nil || largest_shoe < stats[:shoe]
+            player_name = stats[:player_name]
+            largest_shoe = stats[:shoe]
+            rebounds = stats[:rebounds]
+            
+          end 
+        end  
+      end 
+    end 
+  end
+  rebounds
+end
+
+
+
+
