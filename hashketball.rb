@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -125,5 +127,118 @@ def game_hash
     }
   }
 end
+
+
+def num_points_scored(player_name)
+  game_hash.each do |hash1, hash2|
+    hash2.each do |hash3, array4|
+      if hash3 == :players
+        array4.each do |hash|
+          if hash[:player_name] == player_name
+            return hash[:points]
+          end
+        end
+      end
+    end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |hash1, hash2|
+    hash2.each do |array3, hash4|
+      if array3 == :players
+        hash4.each do |hash|
+          if hash[:player_name] == player_name
+            return hash[:shoe]
+          end
+        end
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |hash1, hash2|
+    hash2.each do |array3, array|
+      if array == team_name
+        return hash2[:colors]
+      end
+    end
+  end
+end
+
+def team_names
+  teams = []
+  game_hash.each do |hash1, hash2|
+    hash2.each do |key, value|
+      if key == :team_name
+        teams << value
+      end
+    end
+  end
+  return teams
+end
+
+def player_numbers(team_name)
+  numbers = []
+  game_hash.each do |hash1, hash2|
+    hash2.each do |array3, hash4|
+      if array3 == :players
+        hash4.each do |hash|
+          if hash2[:team_name] == team_name
+            numbers << hash[:number]
+          end
+        end
+      end
+    end
+  end
+  return numbers
+end
+
+def player_stats(player_name)
+  game_hash.each do |hash1, hash2|
+    hash2.each do |array3, hash4|
+      if array3 == :players
+        hash4.each do |hash|
+          if hash[:player_name] == player_name
+            return hash
+          end
+        end
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  rebounds = nil
+  big_shoe = 0
+  game_hash.each do |hash1, hash2|
+    hash2[:players].each do |player|
+
+          if player[:shoe] > big_shoe
+            big_shoe = player[:shoe]
+            rebounds = player[:rebounds]
+          end
+          #"rebounds" returns 12.
+        end
+         #"rebounds" returns 2 at this point.
+    end
+  return rebounds #"rebounds" should return 11.
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Write code here
