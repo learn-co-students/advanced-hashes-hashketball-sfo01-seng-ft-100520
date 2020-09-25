@@ -1,11 +1,12 @@
-# Write your code below game_hash
+require'pry'
+
 def game_hash
   {
     home: {
       team_name: "Brooklyn Nets",
       colors: ["Black", "White"],
       players: [
-        {
+        { 
           player_name: "Alan Anderson",
           number: 0,
           shoe: 16,
@@ -125,5 +126,55 @@ def game_hash
     }
   }
 end
+ 
+def team team_name
+  case team_name
+  when game_hash[:home][:team_name]
+    game_hash[:home]
+    when game_hash[:away][:team_name]
+      game_hash[:away]
+    end  
+end
 
-# Write code here
+def num_points_scored (player_name)
+ all_players= game_hash[:home][:players].concat (game_hash[:away][:players])
+
+  all_players.each do |player|
+    if player_name == player[:player_name]
+      return player[:points]
+    end
+  end
+end
+
+def shoe_size (player_name)
+ all_players= game_hash[:home][:players].concat (game_hash[:away][:players])
+
+  all_players.each do |player|
+    if player_name == player[:player_name]
+      return player[:shoe]
+    end
+  end
+end
+
+
+def team_colors (team_name)
+  team(team_name)[:colors]
+end
+
+    
+    
+def team_names
+  [game_hash[:home][:team_name],game_hash[:away][:team_name]]
+end
+
+def player_numbers(team_name)
+  
+end
+
+
+
+  
+  
+  
+
+
