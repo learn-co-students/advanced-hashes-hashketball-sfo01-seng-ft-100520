@@ -1,4 +1,4 @@
-# Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -126,4 +126,89 @@ def game_hash
   }
 end
 
-# Write code here
+def player_helper
+  game_hash[:away][:players].concat(game_hash[:home][:players])
+end
+
+def num_points_scored(player)
+  count = 0
+  while count < player_helper.length
+    if player_helper[count][:player_name] == player
+      return player_helper[count][:points]
+    end
+      count += 1
+  end
+end
+
+def shoe_size(player)
+  count = 0
+  while count < player_helper.length
+    if player_helper[count][:player_name] == player
+      return player_helper[count][:shoe]
+    end
+    count += 1
+  end
+end
+
+def team_colors(team_name)
+  case team_name
+  when game_hash[:home][:team_name]
+    game_hash[:home][:colors]
+  when game_hash[:away][:team_name]
+    game_hash[:away][:colors]
+  end
+end
+
+def team_names
+  teams_array = []
+  teams_array.push(game_hash[:away][:team_name])
+  teams_array.push(game_hash[:home][:team_name])
+  teams_array
+end
+
+def player_numbers(team)
+  case team
+  when game_hash[:home][:team_name]
+    game_hash[:home][:players].map do |player|
+      player[:number]
+    end
+  when game_hash[:away][:team_name]
+    game_hash[:away][:players].map do |player|
+      player[:number]
+    end
+  end
+end
+
+
+def player_stats(player)
+  count = 0
+  while count < player_helper.length
+    if player_helper[count][:player_name] == player
+      return player_helper[count]
+    end
+    count += 1
+  end
+end
+
+def shoe_size_helper
+  count = 0
+  biggest_shoe = 0
+  biggest_shoe_player = nil
+  while count < player_helper.length
+    if player_helper[count][:shoe] > biggest_shoe
+      biggest_shoe = player_helper[count][:shoe]
+      biggest_shoe_player = player_helper[count][:player_name]
+    end
+    count += 1
+  end
+  return biggest_shoe_player
+end
+
+
+def big_shoe_rebounds
+  player_helper.each do |element|
+    if element[:player_name] == shoe_size_helper
+      return element[:rebounds]
+    end
+  end
+end
