@@ -1,3 +1,6 @@
+require 'pry'
+require './hashketball.rb'
+
 # Write your code below game_hash
 def game_hash
   {
@@ -126,4 +129,101 @@ def game_hash
   }
 end
 
-# Write code here
+
+def num_points_scored(name)
+num = ""
+  game_hash.each do |key,value|
+    value[:players].each do |stats|
+      if name == stats[:player_name]
+        num = stats[:points] 
+      end
+    end
+  end
+  num
+end
+
+
+def shoe_size(name)
+  num = ""
+  game_hash.each do |key,value|
+    value[:players].each do |stats|
+      if name == stats[:player_name]
+        num = stats[:shoe] 
+      end
+    end
+  end
+  num
+end
+
+def team_colors(team)
+color = ""
+    game_hash.each do |key, value|
+      if team == value[:team_name]
+        color = value[:colors] 
+      end
+    end
+  color
+end
+
+def team_names
+teams = []
+  teams << game_hash[:home][:team_name] << game_hash[:away][:team_name]
+end
+
+def player_numbers(team)
+num = []
+  game_hash.each do |key, value|
+      if team == value[:team_name]
+        value[:players].each do |stats|
+          num << stats[:number] 
+        end
+      end
+    end
+  num
+end
+
+def player_stats(name)
+stats = {}
+ game_hash.each do |key,value|
+    value[:players].each do |info|
+      if name == info[:player_name]
+        stats = info
+      end
+    end
+  end
+  stats
+end
+
+
+def big_shoe_rebounds
+player = ""
+win_rebound = ""
+arr = []
+count = 0
+x = 0
+
+  game_hash.each do |key, value|
+    value[:players].each do |stats|
+      arr << stats[:shoe]
+      end
+      
+      while count < arr.length do
+        if x < arr[count]
+          x = arr[count]
+        end
+      count += 1
+      end
+    end
+  game_hash.each do |k,v|
+    v[:players].each do |stats|
+      if x == stats[:shoe]
+        player = stats[:player_name]
+        win_rebound = stats[:rebounds]
+      end
+    end
+  end
+  
+  win_rebound
+end  
+ 
+  
