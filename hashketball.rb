@@ -1,4 +1,4 @@
-# Write your code below game_hash
+require 'pry'# Write your code below game_hash
 def game_hash
   {
     home: {
@@ -126,4 +126,85 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(name)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player|
+      if player[:player_name] == name
+        return player[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(name)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player|
+      if player[:player_name] == name
+        return player[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team)
+  game_hash.each do |location, team_data|
+    if team_data[:team_name] == team
+      return team_data[:colors]
+    end
+  end
+end
+
+def team_names()
+  answer = []
+  game_hash.each do |location, team_data|
+    answer << team_data[:team_name]
+  end
+  answer
+end
+
+def player_numbers(name)
+  game_hash.each do |location, team_data|
+    answer = []
+    if team_data[:team_name] == name
+      num = 0
+      team_data[:players].count do
+        answer << team_data[:players][num][:number]
+        #binding.pry
+        num += 1
+      end
+      #binding.pry
+    return answer
+    end
+  end
+end
+
+def player_stats(name)
+  game_hash.each do |location, team_data|
+    answer = {}
+    num = 0
+    team_data[:players].count do
+      if team_data[:players][num][:player_name] == name
+        answer = team_data[:players][num]
+        #binding.pry
+        puts "answer = #{answer}"
+        return answer
+      end
+    num += 1
+    end
+  end
+end
+
+def big_shoe_rebounds()
+  game_hash.each do |location, team_data|
+    playerArray = []
+    num = 0
+    team_data[:players].count do
+      playerArray << team_data[:players][num]
+      num += 1
+    end
+    sorted = playerArray.sort_by { |k| k[:shoe] }.reverse
+    return sorted[0][:rebounds]
+  end
+end
+
+big_shoe_rebounds()
